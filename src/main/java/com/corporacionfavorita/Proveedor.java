@@ -1,15 +1,20 @@
 
 package com.corporacionfavorita;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "proveedores")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Proveedor {
 
     @Id
@@ -26,61 +31,24 @@ public class Proveedor {
 
     private String correo;
 
-    // Constructor vacío requerido por JPA
-    public Proveedor() {
-    }
+    // Relación: un proveedor puede ofrecer muchos productos
+    @OneToMany(mappedBy = "proveedor")
+    private List<Producto> productos;
 
-    // Constructor para crear proveedores nuevos
+    // Relación: un proveedor puede tener varios contactos
+    @OneToMany(mappedBy = "proveedor")
+    private List<Contacto> contactos;
+
+    // Relación: un proveedor puede tener varios contratos
+    @OneToMany(mappedBy = "proveedor")
+    private List<Contrato> contratos;
+
+    // Constructor para registrar proveedores desde el CRUD anterior
     public Proveedor(String nombre, String ruc,
                      String telefono, String correo) {
         this.nombre = nombre;
         this.ruc = ruc;
         this.telefono = telefono;
         this.correo = correo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getRuc() {
-        return ruc;
-    }
-
-    public void setRuc(String ruc) {
-        this.ruc = ruc;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    @Override
-    public String toString() {
-        return "ID: " + id
-                + " | Nombre: " + nombre
-                + " | RUC: " + ruc
-                + " | Teléfono: " + telefono
-                + " | Correo: " + correo;
     }
 }

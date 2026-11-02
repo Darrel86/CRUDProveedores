@@ -9,6 +9,10 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.corporacionfavorita.Proveedor</class>
+        <class>com.corporacionfavorita.Producto</class>
+        <class>com.corporacionfavorita.Categoria</class>
+        <class>com.corporacionfavorita.Contacto</class>
+        <class>com.corporacionfavorita.Contrato</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
@@ -20,7 +24,7 @@
             <property name="jakarta.persistence.jdbc.user"
                       value="postgres"/>
 
-            <property name="jakarta.persistence.jdbc.password" value="CAMBIAR_POR_TU_PASSWORD"/>
+            <property name="jakarta.persistence.jdbc.password" value="123456"/>
 
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.PostgreSQLDialect"/>
