@@ -1,5 +1,5 @@
 
-package com.corporacionfavorita;
+package com.corporacionfavorita.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

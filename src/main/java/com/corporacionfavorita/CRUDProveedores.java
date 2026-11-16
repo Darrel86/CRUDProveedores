@@ -1,6 +1,8 @@
 
 package com.corporacionfavorita;
 
+import com.corporacionfavorita.dao.ProveedorDAO;
+import com.corporacionfavorita.model.Proveedor;
 import java.util.List;
 import java.util.Scanner;
 

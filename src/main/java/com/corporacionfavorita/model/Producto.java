@@ -1,6 +1,7 @@
 
-package com.corporacionfavorita;
+package com.corporacionfavorita.model;
 
+import com.corporacionfavorita.model.Categoria;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

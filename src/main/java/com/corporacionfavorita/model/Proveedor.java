@@ -1,6 +1,9 @@
 
-package com.corporacionfavorita;
+package com.corporacionfavorita.model;
 
+import com.corporacionfavorita.model.Producto;
+import com.corporacionfavorita.model.Contrato;
+import com.corporacionfavorita.model.Contacto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

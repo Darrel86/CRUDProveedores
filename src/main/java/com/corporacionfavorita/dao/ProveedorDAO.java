@@ -1,6 +1,7 @@
 
-package com.corporacionfavorita;
+package com.corporacionfavorita.dao;
 
+import com.corporacionfavorita.model.Proveedor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
