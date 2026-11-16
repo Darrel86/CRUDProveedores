@@ -1,100 +1,140 @@
-# CRUD de Proveedores
+# CRUD de Proveedores – Corporación Favorita
 
 ## Descripción del proyecto
 
-Este proyecto implementa un CRUD (Crear, Leer, Actualizar y Eliminar) de proveedores para una aplicación de ejemplo de Corporación Favorita. Está desarrollado en Java y utiliza JPA e Hibernate para la persistencia de datos en una base de datos PostgreSQL.
+Este proyecto consiste en el desarrollo de un sistema de gestión de proveedores para Corporación Favorita, utilizando Java, Maven, Hibernate y PostgreSQL.
 
-El sistema permite administrar la información de los proveedores mediante un menú interactivo en consola.
+El sistema permite trabajar con información de proveedores y gestionar sus relaciones con productos, categorías, contactos y contratos mediante el uso de persistencia ORM con JPA.
 
 ## Tecnologías utilizadas
 
-- **Java:** lenguaje de programación.
-- **Maven:** gestión de dependencias y configuración del proyecto.
-- **JPA:** especificación para la persistencia de datos.
-- **Hibernate:** implementación de JPA.
-- **PostgreSQL:** sistema gestor de base de datos.
-- **NetBeans IDE:** entorno de desarrollo.
-- **StarUML:** elaboración del diagrama de clases.
-- **Git y GitHub:** control de versiones y almacenamiento del proyecto.
-
-## Funcionalidades
-
-El sistema permite:
-
-1. Registrar nuevos proveedores.
-2. Listar los proveedores registrados.
-3. Buscar un proveedor por su identificador.
-4. Actualizar la información de un proveedor.
-5. Eliminar proveedores por su identificador.
-6. Finalizar la ejecución del programa.
+- **Lenguaje:** Java.
+- **Gestor de dependencias:** Maven.
+- **Persistencia:** Jakarta Persistence (JPA).
+- **ORM:** Hibernate.
+- **Base de datos:** PostgreSQL.
+- **IDE:** Apache NetBeans.
+- **Control de versiones:** Git y GitHub.
 
 ## Estructura del proyecto
 
+El proyecto está organizado en paquetes siguiendo una separación de responsabilidades:
+
 ```text
-CRUDProveedores/
-├── src/
-│   └── main/
-│       ├── java/
-│       │   └── com/
-│       │       └── corporacionfavorita/
-│       │           ├── CRUDProveedores.java
-│       │           ├── Proveedor.java
-│       │           ├── ProveedorDAO.java
-│       │           └── PruebaConexion.java
-│       └── resources/
-│           └── META-INF/
-│               └── persistence.xml
-├── Diagrama_CRUD_Proveedores.mdj
-├── pom.xml
-├── .gitignore
-└── README.md
+com.corporacionfavorita
+│
+├── CRUDProveedores.java
+│
+├── model
+│   ├── Proveedor.java
+│   ├── Producto.java
+│   ├── Categoria.java
+│   ├── Contacto.java
+│   └── Contrato.java
+│
+├── dao
+│   ├── ProveedorDAO.java
+│   └── ConsultasJPQL.java
+│
+├── controlador
+│
+├── vista
+│
+└── util
+    └── PruebaConexion.java
 ```
 
-## Requisitos previos
+### Descripción de los paquetes
 
-Para ejecutar el proyecto se necesita:
+- **model:** contiene las entidades que representan las tablas de la base de datos.
+- **dao:** contiene las clases encargadas del acceso y las consultas a los datos.
+- **controlador:** destinado a gestionar la lógica de control de la aplicación.
+- **vista:** destinado a los componentes de la interfaz gráfica.
+- **util:** contiene herramientas auxiliares, como la prueba de conexión.
 
-- Tener instalado un JDK compatible con la configuración de Maven.
-- Tener instalado Apache Maven, o utilizar la integración de Maven de NetBeans.
-- Tener instalado PostgreSQL.
-- Tener instalado NetBeans IDE o un entorno compatible con proyectos Maven.
+## Modelo de datos y relaciones
+
+El sistema está compuesto por cinco entidades principales:
+
+| Entidad | Descripción |
+|---|---|
+| Proveedor | Almacena la información de los proveedores. |
+| Producto | Contiene los productos asociados a proveedores y categorías. |
+| Categoria | Clasifica los productos. |
+| Contacto | Almacena los contactos de cada proveedor. |
+| Contrato | Registra los contratos de los proveedores. |
+
+### Relaciones entre entidades
+
+- Un proveedor puede tener varios productos.
+- Un proveedor puede tener varios contactos.
+- Un proveedor puede tener varios contratos.
+- Una categoría puede contener varios productos.
+
+## Persistencia y consultas
+
+El proyecto utiliza Hibernate como proveedor de persistencia JPA para gestionar las operaciones con PostgreSQL.
+
+Se utiliza JPQL para realizar consultas sobre las entidades, incluyendo:
+
+- Búsqueda de proveedores por nombre.
+- Consulta de productos por categoría.
+- Consulta de contratos activos.
+- Consulta de todos los productos.
+- Consulta de contactos asociados a un proveedor.
+- Consultas paginadas para organizar los resultados.
 
 ## Configuración de la base de datos
 
-1. Iniciar PostgreSQL.
-2. Crear una base de datos con el nombre `bd_proveedores`.
-3. Abrir el archivo `src/main/resources/META-INF/persistence.xml`.
-4. Verificar que la URL de conexión corresponda a la base de datos local:
+Para ejecutar el proyecto se necesita PostgreSQL instalado y una base de datos llamada:
 
-   `jdbc:postgresql://localhost:5432/bd_proveedores`
+```sql
+CREATE DATABASE bd_proveedores;
+```
 
-5. Configurar el usuario y la contraseña de PostgreSQL en el entorno local.
-6. Verificar que las credenciales coincidan con las configuradas en PostgreSQL.
+La conexión se configura en:
 
-Hibernate está configurado para actualizar el esquema de la base de datos según las entidades del proyecto.
+`src/main/resources/META-INF/persistence.xml`
 
-**Importante:** no publicar contraseñas reales ni otras credenciales en el repositorio.
+Los parámetros de conexión deben ajustarse según la configuración local de PostgreSQL:
 
-## Ejecución del proyecto
+- Base de datos: `bd_proveedores`
+- Usuario: el usuario configurado en PostgreSQL.
+- Contraseña: la contraseña correspondiente al usuario.
+- Puerto predeterminado: `5432`.
 
-1. Abrir NetBeans IDE.
-2. Seleccionar **File → Open Project**.
-3. Elegir la carpeta `CRUDProveedores`.
-4. Esperar a que Maven descargue las dependencias necesarias.
-5. Verificar la configuración de la conexión a PostgreSQL.
-6. Ejecutar la clase `CRUDProveedores.java`.
-7. Utilizar las opciones del menú de consola para administrar los proveedores.
+Hibernate está configurado con la propiedad `hibernate.hbm2ddl.auto` en modo `update`, por lo que puede actualizar el esquema de la base de datos según las entidades.
 
-La clase `PruebaConexion.java` permite comprobar la conexión con la base de datos.
+## Instalación y ejecución
 
-## Diagrama de clases
+1. Clonar el repositorio:
 
-El archivo `Diagrama_CRUD_Proveedores.mdj` contiene el diagrama de clases elaborado con StarUML para representar la estructura principal del sistema y las relaciones entre sus clases.
+```bash
+git clone https://github.com/Darrel86/CRUDProveedores.git
+```
+
+2. Abrir el proyecto desde Apache NetBeans.
+
+3. Verificar que Maven descargue las dependencias necesarias.
+
+4. Crear la base de datos `bd_proveedores` en PostgreSQL.
+
+5. Configurar las credenciales de conexión en `persistence.xml`.
+
+6. Ejecutar **Clean and Build** para compilar el proyecto.
+
+7. Ejecutar la clase principal `CRUDProveedores.java`.
+
+## Diagrama UML
+
+El repositorio incluye el diagrama UML de clases, donde se representan las entidades del sistema, sus atributos y las relaciones entre ellas.
 
 ## Autor
 
-Darrel86
+Darwin Ismael Torres Caguano
 
-## Repositorio
+Proyecto académico – Gestión de Proveedores.
 
-https://github.com/Darrel86/CRUDProveedores
+---
+
+**Repositorio:** [CRUDProveedores – GitHub](https://github.com/Darrel86/CRUDProveedores)
